@@ -30,7 +30,6 @@ def about_program():
 # Local
 def change_local(local):
     locale.setlocale(locale.LC_ALL, t_local[local])
-    fill()
     for day in range(7):
         lb_d = Label(frame, text=calendar.day_abbr[day], width=2, height=2, font="Verdana 16 bold", fg="darkblue",
                      background="#B0C4DE")
@@ -64,12 +63,15 @@ def fill():
         back_month_days = calendar.monthrange(year, month - 1)[1]
     week_day = calendar.monthrange(year, month)[0]
 
-    for d in range(month_days):
+    for d in range(month_days + 1):
         days[d + week_day]["text"] = d + 1
         days[d + week_day]["fg"] = "black"
+
         if year == now.year and month == now.month and d == now.day:
             days[d + week_day - 1]["bg"] = "#00FF00"
             days[d + week_day]["bg"] = "#4682B4"
+            if d + week_day in (5, 6, 12, 13, 19, 20, 26, 27, 33, 34):
+                days[d + week_day]["bg"] = "#FF0000"
 
         else:
             days[d + week_day]["bg"] = "#4682B4"
@@ -100,7 +102,7 @@ main_menu.add_cascade(label="Файл", menu=file_menu)
 # Menu local
 theme_menu = Menu(main_menu, tearoff=0)
 theme_menu_sub = Menu(theme_menu, tearoff=0)
-theme_menu_sub.add_command(label="Рус", command=lambda: change_local("Ru"))
+theme_menu_sub.add_command(label="Rus", command=lambda: change_local("Ru"))
 theme_menu_sub.add_command(label="Eng", command=lambda: change_local("Eng"))
 theme_menu.add_cascade(label="Оформление", menu=theme_menu_sub)
 main_menu.add_cascade(label="Local (Локаль)", menu=theme_menu)
