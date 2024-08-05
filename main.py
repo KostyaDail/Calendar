@@ -34,7 +34,7 @@ def change_local(local):
         lb_d = Label(frame, text=calendar.day_abbr[day], width=2, height=2, font="Verdana 16 bold", fg="darkblue",
                      background="#B0C4DE")
         lb_d.grid(row=2, column=day + 1, sticky=NSEW)
-
+    fill()
 
 def press_back():
     global month, year
