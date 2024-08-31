@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import locale
 import calendar
 from datetime import datetime as dt
+from datetime import datetime
 
 root = Tk()
 root.geometry("980x600+500+200")
@@ -34,7 +35,13 @@ def change_local(local):
         lb_d = Label(frame, text=calendar.day_abbr[day], width=2, height=2, font="Verdana 16 bold", fg="darkblue",
                      background="#B0C4DE")
         lb_d.grid(row=2, column=day + 1, sticky=NSEW)
+    text = "Вернуть" if local == 'Ru' else "Return"
+    f_ret = Button(frame, text=text, font="Verdana 9 bold", fg="black", background="black", command=return_fill)
+    f_ret["border"] = 1
+    f_ret["bg"] = "#ceb8db"
+    f_ret.grid(row=0, column=1, ipadx=0, ipady=0, padx=0, pady=20, sticky=NSEW)
     fill()
+
 
 def press_back():
     global month, year
@@ -51,6 +58,14 @@ def press_forward():
     if month == 13:
         month = 1
         year += 1
+    fill()
+
+
+def return_fill():
+    global month, year
+    current_datetime = datetime.now()
+    month = current_datetime.month
+    year = current_datetime.year
     fill()
 
 
@@ -132,6 +147,12 @@ f_but = Button(right_frame, image=img_photo_fr, command=press_forward)
 f_but["border"] = 0
 f_but["bg"] = "#B0C4DE"
 f_but.grid(row=0, column=8, ipadx=0, ipady=0, padx=0, pady=0, sticky=NSEW)
+
+# Button return
+f_ret = Button(frame, text="Вернуть", font="Verdana 9 bold", fg="black", background="black", command=return_fill)
+f_ret["border"] = 1
+f_ret["bg"] = "#ceb8db"
+f_ret.grid(row=0, column=1, ipadx=0, ipady=0, padx=0, pady=20, sticky=NSEW)
 
 # Calendar
 locale.setlocale(locale.LC_ALL, 'Russian_Russia')
