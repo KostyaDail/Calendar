@@ -4,7 +4,6 @@ from PIL import Image, ImageTk
 import locale
 import calendar
 from datetime import datetime as dt
-from datetime import datetime
 
 root = Tk()
 root.geometry("980x600+500+200")
@@ -63,7 +62,7 @@ def press_forward():
 
 def return_fill():
     global month, year
-    current_datetime = datetime.now()
+    current_datetime = dt.now()
     month = current_datetime.month
     year = current_datetime.year
     fill()
